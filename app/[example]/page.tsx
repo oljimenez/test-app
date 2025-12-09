@@ -1,8 +1,10 @@
 import { connection } from "next/server";
 
 export const dynamic = "force-static";
+export const revalidate = false;
 
- export default async function Home() {
+ export default async function Home(props: {params: Promise<{example: string}>}) {
+    const params = await props.params;
     await connection();
 
   const res =  await fetch("https://dog.ceo/api/breeds/image/random", {
