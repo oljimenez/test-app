@@ -1,12 +1,12 @@
 import { cacheLife } from "next/cache";
-import { Suspense } from "react";
+
 
 export default async function Home(props: PageProps<"/[id]">) {
   
     return (
-        <Suspense fallback={<div>Loading...</div>}> 
+        <div> 
             <CachedData params={props.params}/>
-        </Suspense>
+        </div>
      )
 }
 
