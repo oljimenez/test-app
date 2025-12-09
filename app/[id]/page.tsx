@@ -11,7 +11,7 @@ export default async function Home(props: PageProps<"/[id]">) {
 }
 
 async function CachedData(props:{params: PageProps<"/[id]">['params']}){
-    "use cache"
+    "use cache";
     cacheLife('max');
 
     const params = await props.params;
