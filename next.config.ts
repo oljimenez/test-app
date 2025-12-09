@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
         incomingRequests:true
     },
 
+    cacheComponents: true,
+
   /* config options here */
 };
 
