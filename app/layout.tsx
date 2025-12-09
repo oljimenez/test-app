@@ -22,6 +22,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+throw new Error("Test error from layout");
+
   return (
     <html lang="en">
       <body
