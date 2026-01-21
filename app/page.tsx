@@ -1,6 +1,9 @@
 import Link from "next/link";
 
- export default function Home() {
+export const dynamic = 'force-static';
+export const revalidate = false;
+
+export default function Home() {
    
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">

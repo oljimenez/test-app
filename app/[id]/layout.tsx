@@ -1,14 +1,9 @@
 
 export default  function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode}>) {
  
-
-//   throw new Error("Test error from layout");
-
-
+  throw new Error("Test error from layout");
 
   return (
     <div >
