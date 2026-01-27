@@ -1,5 +1,5 @@
 
-export const dynamic = 'force-static';
+export const dynamic = 'force-dynamic';
 export const revalidate = false;
 
 export default async function Home(props: PageProps<"/[id]">) {
