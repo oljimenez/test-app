@@ -12,11 +12,16 @@ async function CachedLayoutContent({
   cacheLife('max');
   cacheTag('layout-content');
 
-  throw new Error("Test error from layout");
+//   throw new Error("Test error from layout");
 
 
-  return <div>{children}</div>;
-}
+  return (
+    <div>
+        <h1>Layout Wrapper</h1>
+        {children}
+    </div>
+  )
+};
 
 // Dynamic wrapper - defers execution to request time
 async function DynamicLayoutWrapper({ 
