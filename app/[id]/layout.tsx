@@ -1,20 +1,24 @@
 
 import { Suspense } from 'react';
 import { cacheLife, cacheTag } from 'next/cache';
-import { connection } from 'next/server';
 
 async function CachedLayoutContent({ 
   children, 
+    params
 }: { 
   children: React.ReactNode;
+  params:  LayoutProps<"/[id]">['params'];
 }) {
   'use cache';
   cacheLife('max');
   cacheTag('layout-content');
 
-//   throw new Error("Test error from layout");
+   const pageId = await params;
 
-
+  if(pageId.id === 'error'){
+    throw new Error("Test error from layout");
+  }
+  
   return (
     <div>
         <h1>Layout Wrapper</h1>
@@ -23,25 +27,13 @@ async function CachedLayoutContent({
   )
 };
 
-// Dynamic wrapper - defers execution to request time
-async function DynamicLayoutWrapper({ 
-  children, 
-}: { 
-  children: React.ReactNode;
-}) {
-  await connection(); // Defer to request time
-  return <CachedLayoutContent>{children}</CachedLayoutContent>;
-}
-
 export default async function RootLayout({
   children,
-}: Readonly<{ 
-  children: React.ReactNode;
-}>) {
-
+  params
+}: LayoutProps<"/[id]">) {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <DynamicLayoutWrapper >{children}</DynamicLayoutWrapper>
+      <CachedLayoutContent params={params}>{children}</CachedLayoutContent>
     </Suspense>
   );
 }

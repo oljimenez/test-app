@@ -1,16 +1,21 @@
 
 import { cacheLife, cacheTag } from 'next/cache';
+import { Suspense } from 'react';
 
-export default async function Home(props: PageProps<"/[id]">) {
-    'use cache';
-    cacheLife('max');
-    cacheTag('page-content');
 
-    const params = await props.params;
-    
-    return (
-        <div> 
-           Example {params.id}
-        </div>
-     )
+
+async function PageContent() {
+  'use cache';
+  cacheLife('max');
+  cacheTag('page-content');
+
+  return <div>Page Content</div>;
+}
+
+export default async function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <PageContent />
+    </Suspense>
+  );
 }
