@@ -1,9 +1,9 @@
 import Link from "next/link";
+import { cacheLife } from 'next/cache';
 
-export const dynamic = 'force-static';
-export const revalidate = false;
-
-export default function Home() {
+export default async function Home() {
+  'use cache';
+  cacheLife('max');
    
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
