@@ -1,8 +1,9 @@
 
 import { Suspense } from 'react';
 import { cacheLife, cacheTag } from 'next/cache';
+import { connection } from 'next/server';
 
-async function LayoutContent({ 
+async function CachedLayoutContent({ 
   children, 
 }: { 
   children: React.ReactNode;
@@ -11,7 +12,20 @@ async function LayoutContent({
   cacheLife('max');
   cacheTag('layout-content');
 
+  throw new Error("Test error from layout");
+
+
   return <div>{children}</div>;
+}
+
+// Dynamic wrapper - defers execution to request time
+async function DynamicLayoutWrapper({ 
+  children, 
+}: { 
+  children: React.ReactNode;
+}) {
+  await connection(); // Defer to request time
+  return <CachedLayoutContent>{children}</CachedLayoutContent>;
 }
 
 export default async function RootLayout({
@@ -22,7 +36,7 @@ export default async function RootLayout({
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <LayoutContent >{children}</LayoutContent>
+      <DynamicLayoutWrapper >{children}</DynamicLayoutWrapper>
     </Suspense>
   );
 }
